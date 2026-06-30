@@ -1,0 +1,79 @@
+---
+interface Props {
+  active: 'home' | 'portfolio' | 'about' | 'contact';
+}
+const { active } = Astro.props;
+---
+<header>
+  <div class="inner">
+    <a href="/" class="logo" data-cursor="home" data-cursor-label="HOME">
+      <span class="dot"></span>
+      Home
+    </a>
+    <nav>
+      <a href="/portfolio" class:list={['nav-link', { active: active === 'portfolio' }]}>
+        <span data-lang="de">Veröffentlichungen</span>
+        <span data-lang="en">Work</span>
+      </a>
+      <a href="/about" class:list={['nav-link', { active: active === 'about' }]}>
+        <span data-lang="de">Über</span>
+        <span data-lang="en">About</span>
+      </a>
+      <a href="/contact" class:list={['nav-link', { active: active === 'contact' }]}>
+        <span data-lang="de">Kontakt</span>
+        <span data-lang="en">Contact</span>
+      </a>
+      <button id="lang-btn" class="lang-btn">EN</button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: all 240ms var(--ease-out);
+  }
+  header.scrolled {
+    background: rgba(246,243,238,0.82);
+    backdrop-filter: blur(14px);
+    border-bottom-color: var(--hairline);
+  }
+  .inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 40px;
+    transition: padding 240ms var(--ease-out);
+  }
+  header.scrolled .inner { padding: 14px 40px; }
+
+  .logo {
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+    color: var(--ink); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: var(--signal-yellow); flex-shrink: 0;
+  }
+
+  nav {
+    display: flex; gap: 28px; align-items: center;
+  }
+  .nav-link {
+    font-family: var(--font-ui); font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 2px solid transparent; padding-bottom: 3px;
+    transition: border-color 200ms;
+  }
+  .nav-link.active { border-bottom-color: var(--accent); }
+
+  .lang-btn {
+    background: transparent; border: none;
+    font-family: var(--font-ui); font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--fg-2);
+  }
+</style>

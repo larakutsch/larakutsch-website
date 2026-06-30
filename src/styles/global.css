@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&family=Archivo:wght@400;500;700;900&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  --paper:        #F6F3EE;
+  --paper-2:      #ECE7DD;
+  --paper-3:      #E2DBCD;
+  --ink:          #0A0A0A;
+  --ink-2:        #1A1A1A;
+  --smoke:        #6B6660;
+  --smoke-2:      #9A938A;
+  --hairline:     rgba(10,10,10,0.12);
+  --hairline-2:   rgba(10,10,10,0.22);
+
+  --signal-yellow: #F2D72A;
+  --signal-blue:  #1B3DF5;
+  --signal-lime:  #C8FF2E;
+  --accent:       var(--signal-blue);
+  --accent-ink:   #0A0A0A;
+
+  --fg-1:  var(--ink);
+  --fg-2:  var(--smoke);
+  --fg-3:  var(--smoke-2);
+  --fg-inv: var(--paper);
+  --bg-1:  var(--paper);
+  --bg-2:  var(--paper-2);
+  --bg-3:  var(--paper-3);
+  --bg-inv: var(--ink);
+  --link:       var(--ink);
+  --link-hover: var(--accent);
+
+  --font-display-b: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-body-b:    "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-italic-b:  "Instrument Serif", "Times New Roman", Georgia, serif;
+  --font-display:   var(--font-display-b);
+  --font-body:      var(--font-body-b);
+  --font-mono:      "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --font-ui:        "Space Grotesk", "Manrope", system-ui, sans-serif;
+
+  --t-mega:    clamp(4rem,   12vw,   12rem);
+  --t-display: clamp(3rem,    8vw,    7rem);
+  --t-h1:      clamp(2.25rem, 5vw,    4.5rem);
+  --t-h2:      clamp(1.75rem, 3.5vw,  3rem);
+  --t-h3:      clamp(1.25rem, 2vw,    1.75rem);
+  --t-lede:    clamp(1.125rem, 1.6vw, 1.5rem);
+  --t-body:    1.0625rem;
+  --t-small:   0.875rem;
+  --t-meta:    0.75rem;
+
+  --lh-tight: 0.92;
+  --lh-snug:  1.05;
+  --lh-body:  1.55;
+  --lh-loose: 1.7;
+
+  --tracking-tight: -0.03em;
+  --tracking-flat:  -0.01em;
+  --tracking-meta:   0.16em;
+  --tracking-wide:   0.04em;
+
+  --space-1: 4px;  --space-2: 8px;   --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px;  --space-7: 48px; --space-8: 64px;
+  --space-9: 96px; --space-10: 144px;
+
+  --radius-0: 0px; --radius-1: 2px; --radius-2: 6px; --radius-pill: 999px;
+
+  --border-hair:  1px solid var(--hairline);
+  --border-thin:  1px solid var(--ink);
+  --border-thick: 2px solid var(--ink);
+  --border-rule:  1px solid var(--ink);
+
+  --shadow-1: 0 1px 0 var(--hairline);
+  --shadow-2: 0 8px 24px -12px rgba(10,10,10,0.18);
+  --shadow-3: 0 24px 60px -20px rgba(10,10,10,0.28);
+
+  --ease-out:    cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:   150ms;
+  --dur-base:   240ms;
+  --dur-slow:   480ms;
+  --dur-page:   720ms;
+}
+
+[data-theme="dark"] {
+  --bg-1: #0A0A0A; --bg-2: #141414; --bg-3: #1F1F1F;
+  --fg-1: #F6F3EE; --fg-2: #B6B0A6; --fg-3: #7E7972;
+  --hairline: rgba(246,243,238,0.16); --hairline-2: rgba(246,243,238,0.28);
+  --link: var(--paper);
+  --border-thin: 1px solid var(--paper);
+  --border-thick: 2px solid var(--paper);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg-1);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  font-feature-settings: "ss01", "kern", "liga";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: none;
+}
+@media (max-width: 720px) { html, body { cursor: auto; } }
+@media (hover: none)      { html, body { cursor: auto; } }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: var(--t-h1); }
+h2 { font-size: var(--t-h2); }
+h3 { font-size: var(--t-h3); letter-spacing: var(--tracking-flat); }
+h4 { font-size: 1.125rem;    letter-spacing: var(--tracking-flat); }
+
+p { margin: 0 0 1em; max-width: 64ch; }
+p.lede { font-size: var(--t-lede); line-height: 1.45; max-width: 56ch; }
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--dur-fast) var(--ease-out);
+  cursor: none;
+}
+a:hover { color: var(--link-hover); }
+@media (hover: none) { a { cursor: auto; } }
+
+button { cursor: none; }
+@media (hover: none) { button { cursor: auto; } }
+
+hr { border: 0; border-top: var(--border-thin); margin: var(--space-7) 0; }
+em { font-style: italic; }
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* Marquee animation */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}

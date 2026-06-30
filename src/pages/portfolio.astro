@@ -1,0 +1,181 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const articles = allArticles.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+<Layout title="Veröffentlichungen — Lara Kutsch">
+  <Header active="portfolio" />
+
+  <main>
+    <div class="page-bar">
+      <span class="kicker">
+        <span data-lang="de">Veröffentlichungen</span>
+        <span data-lang="en">Work</span>
+      </span>
+      <span class="kicker" id="count-label">{articles.length} <span data-lang="de">Artikel</span><span data-lang="en">pieces</span></span>
+    </div>
+
+    <h1 class="page-title">
+      <span data-lang="de">Was bisher<br/><em>geschah.</em></span>
+      <span data-lang="en">What's been<br/><em>written.</em></span>
+    </h1>
+
+    <div class="filters" role="group">
+      <button class="chip active" data-filter="all">
+        <span data-lang="de">Alle</span><span data-lang="en">All</span>
+      </button>
+      <button class="chip" data-filter="mode">
+        <span data-lang="de">Mode</span><span data-lang="en">Fashion</span>
+      </button>
+      <button class="chip" data-filter="lifestyle">Lifestyle</button>
+      <button class="chip" data-filter="reisen">
+        <span data-lang="de">Reisen</span><span data-lang="en">Travel</span>
+      </button>
+      <button class="chip" data-filter="zeitgeist">Zeitgeist</button>
+    </div>
+
+    <div class="article-list">
+      {articles.map((a, i) => (
+        <a
+          href={a.data.pdf ? `/${a.data.pdf}` : '#'}
+          target={a.data.pdf ? '_blank' : undefined}
+          rel={a.data.pdf ? 'noopener' : undefined}
+          class="row"
+          data-topic={a.data.topic}
+          data-cursor="read"
+          data-cursor-label="LESEN"
+        >
+          <span class="row-num">{String(i + 1).padStart(2, '0')}</span>
+          <div class="row-thumb" style={`background: ${a.data.swatch};`}>
+            {a.data.img && <img src={`/${a.data.img}`} alt={a.data.title} />}
+          </div>
+          <div class="row-body">
+            <span class="row-kicker">{a.data.kicker}</span>
+            <div class="row-title">{a.data.title}</div>
+          </div>
+          <span class="row-pub">{a.data.publication}</span>
+          <span class="row-meta">{a.data.year}</span>
+          <span class="row-meta">{a.data.length}</span>
+          <span class="row-arrow">→</span>
+        </a>
+      ))}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  const rows  = document.querySelectorAll<HTMLElement>('.row');
+  const countLabel = document.getElementById('count-label');
+
+  function applyFilter(filter: string) {
+    let count = 0;
+    rows.forEach(row => {
+      const show = filter === 'all' || row.dataset.topic === filter;
+      row.style.display = show ? '' : 'none';
+      if (show) count++;
+    });
+    chips.forEach(c => c.classList.toggle('active', c.dataset.filter === filter));
+    if (countLabel) {
+      const deSpan = countLabel.querySelector('[data-lang="de"]');
+      const enSpan = countLabel.querySelector('[data-lang="en"]');
+      if (deSpan) deSpan.textContent = `${count} Artikel`;
+      if (enSpan) enSpan.textContent = `${count} pieces`;
+    }
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => applyFilter(chip.dataset.filter || 'all'));
+  });
+</script>
+
+<style>
+  main { padding: 40px 40px 0; }
+
+  .page-bar {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 48px;
+  }
+  .kicker {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 600; color: var(--ink);
+  }
+
+  .page-title {
+    font-family: var(--font-display); font-size: clamp(3rem, 9vw, 8rem);
+    font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; margin: 0 0 48px;
+  }
+  .page-title em { font-style: italic; color: var(--accent); }
+
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 64px; }
+  .chip {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 500;
+    border: 1px solid var(--ink); border-radius: 999px;
+    padding: 7px 14px; background: transparent; color: var(--ink);
+    transition: all 180ms;
+  }
+  .chip.active { background: var(--ink); color: var(--paper); }
+
+  .row {
+    display: grid;
+    grid-template-columns: 48px 120px 2fr 1fr 110px 80px 32px;
+    gap: 24px; align-items: center; padding: 24px 0;
+    border-top: 1px solid var(--hairline);
+    text-decoration: none; color: var(--ink);
+    transition: background 200ms var(--ease-out), padding 200ms;
+  }
+  .row:hover {
+    background: var(--bg-2);
+    padding-left: 16px; padding-right: 16px;
+    margin: 0 -16px;
+  }
+  .row-num {
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.1em; color: var(--fg-3);
+  }
+  .row-thumb {
+    aspect-ratio: 1/1; position: relative; overflow: hidden;
+  }
+  .row-thumb img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  }
+  .row-kicker {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 600; color: var(--accent);
+    display: block; margin-bottom: 4px;
+  }
+  .row-title {
+    font-family: var(--font-display); font-size: clamp(1.25rem, 2.4vw, 2rem);
+    font-weight: 700; letter-spacing: -0.025em; line-height: 1.05;
+  }
+  .row-pub {
+    font-family: var(--font-ui); font-size: 12px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-2);
+  }
+  .row-meta {
+    font-family: var(--font-ui); font-size: 12px;
+    letter-spacing: 0.04em; color: var(--fg-2);
+  }
+  .row-arrow {
+    font-family: var(--font-display); font-size: 24px;
+    transition: all 200ms; color: var(--ink);
+  }
+  .row:hover .row-arrow { color: var(--accent); transform: translateX(4px); }
+
+  @media (max-width: 900px) {
+    .row { grid-template-columns: 32px 80px 1fr 80px 32px; }
+    .row-pub, .row-meta:last-of-type { display: none; }
+  }
+  @media (max-width: 600px) {
+    main { padding: 20px 20px 0; }
+    .row { grid-template-columns: 32px 64px 1fr 24px; }
+    .row-pub, .row-meta { display: none; }
+  }
+</style>

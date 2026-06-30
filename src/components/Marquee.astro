@@ -1,0 +1,42 @@
+---
+interface Props {
+  items: string[];
+  accent?: boolean;
+}
+const { items, accent = false } = Astro.props;
+const triple = [...items, ...items, ...items];
+---
+<div class:list={['marquee-wrap', { accent }]}>
+  <div class="track">
+    {triple.map((item) => (
+      <span class="item">
+        {item}<span class="sep">·</span>
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee-wrap {
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    overflow: hidden; padding: 18px 0;
+    white-space: nowrap;
+  }
+  .marquee-wrap.accent { background: var(--accent); }
+
+  .track {
+    display: inline-block;
+    animation: marquee 28s linear infinite;
+  }
+  .item {
+    font-family: var(--font-display); font-size: 36px;
+    font-weight: 700; margin: 0 32px; letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .accent .item { color: var(--accent-ink); }
+  .sep {
+    color: var(--fg-2); margin: 0 24px; font-weight: 400;
+  }
+  .accent .sep { color: var(--accent-ink); }
+</style>

@@ -1,0 +1,74 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  publication: string;
+  year: number;
+  length: string;
+  swatch: string;
+  img?: string;
+  imgPosition?: string;
+  pdf?: string;
+  large?: boolean;
+}
+const { kicker, title, publication, year, length, swatch, img, imgPosition = 'center', pdf, large = false } = Astro.props;
+const href = pdf ? `/${pdf}` : '#';
+---
+<a href={href} target={pdf ? '_blank' : undefined} rel={pdf ? 'noopener' : undefined}
+   class:list={['tile', { large }]}
+   data-cursor="read" data-cursor-label="LESEN">
+  <div class="img-wrap" style={`background: ${swatch};`}>
+    {img && <img src={`/${img}`} alt={title} style={`object-position: ${imgPosition}`} />}
+    <div class="overlay"></div>
+  </div>
+  <div class="kicker">{kicker}</div>
+  <h3 class:list={['title', { large }]}>{title}</h3>
+  <div class="meta">
+    <span class="pub">{publication}</span>
+    <span class="dot">·</span>{year}
+    <span class="dot">·</span>{length}
+  </div>
+</a>
+
+<style>
+  .tile {
+    display: block; text-decoration: none; color: var(--ink);
+    transition: transform 280ms var(--ease-out);
+  }
+  .tile:hover { transform: translateY(-3px); }
+
+  .img-wrap {
+    aspect-ratio: 1/1; position: relative; overflow: hidden; margin-bottom: 18px;
+  }
+  .tile.large .img-wrap { aspect-ratio: 4/3; }
+
+  .img-wrap img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .overlay {
+    position: absolute; inset: 0;
+    background: rgba(10,10,10,0);
+    transition: background 240ms;
+  }
+  .tile:hover .overlay { background: rgba(10,10,10,0.08); }
+
+  .kicker {
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    font-weight: 600; color: var(--accent); margin-bottom: 8px;
+  }
+  .title {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
+    font-weight: 700; letter-spacing: -0.025em;
+    line-height: 1.0; margin: 0 0 14px; text-wrap: balance;
+  }
+  .title.large { font-size: clamp(1.75rem, 3vw, 2.75rem); }
+  .meta {
+    font-family: var(--font-ui); font-size: 12px;
+    letter-spacing: 0.04em; color: var(--fg-2);
+  }
+  .pub { text-transform: uppercase; letter-spacing: 0.1em; }
+  .dot { margin: 0 0.6em; color: var(--fg-3); }
+</style>

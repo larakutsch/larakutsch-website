@@ -1,0 +1,207 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ArticleTile from '../components/ArticleTile.astro';
+import Marquee from '../components/Marquee.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const sorted = allArticles.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const featured = sorted.filter(a => a.data.featured).slice(0, 3);
+const more = sorted.filter(a => !a.data.featured).slice(0, 4);
+
+const today = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
+const todayEN = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
+
+const marqueeItems = ['Cosmopolitan','Handelsblatt','Seaside Magazin','Brautmagazin'];
+---
+<Layout>
+  <Header active="home" />
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bar">
+        <span class="kicker ink">
+          <span data-lang="de">Hamburg &amp; Überall</span>
+          <span data-lang="en">Hamburg &amp; Everywhere</span>
+        </span>
+        <span class="kicker ink">
+          <span data-lang="de">{today}</span>
+          <span data-lang="en">{todayEN}</span>
+        </span>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-video-wrap">
+          <div class="orange-bg"></div>
+          <video autoplay loop muted playsinline class="hero-video">
+            <source src="/hero.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="hero-text">
+          <div class="hero-name">Lara<br/>Kutsch</div>
+          <div class="hero-role">
+            <span data-lang="de">Freie Journalistin</span>
+            <span data-lang="en">Freelance Journalist</span>
+          </div>
+          <p class="hero-sub">
+            <span data-lang="de">— unter anderem für <em>Cosmopolitan</em>, <em>Handelsblatt</em>, <em>Seaside Magazin</em></span>
+            <span data-lang="en">— among others for <em>Cosmopolitan</em>, <em>Handelsblatt</em>, <em>Seaside Magazin</em></span>
+          </p>
+          <a href="/contact" class="cta" data-cursor="mail" data-cursor-label="MAIL">
+            <span data-lang="de">Anfrage senden →</span>
+            <span data-lang="en">Send a request →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Marquee items={marqueeItems} />
+
+    <!-- FEATURED -->
+    <section class="featured">
+      <div class="section-bar">
+        <h2 class="section-title">
+          <span data-lang="de">Aktuell</span>
+          <span data-lang="en">Currently</span>
+        </h2>
+        <span class="kicker muted">2025 · 2026</span>
+      </div>
+      <div class="grid-3">
+        {featured.map(a => (
+          <ArticleTile
+            kicker={a.data.kicker}
+            title={a.data.title}
+            publication={a.data.publication}
+            year={a.data.year}
+            length={a.data.length}
+            swatch={a.data.swatch}
+            img={a.data.img}
+            imgPosition={a.data.imgPosition}
+            pdf={a.data.pdf}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- PULL QUOTE -->
+    <section class="quote">
+      <div class="quote-text">
+        <em>&bdquo;</em>Man schreibt nicht, weil man etwas sagen <em class="accent">will,</em> sondern weil man etwas zu sagen <em class="accent">hat.</em><em>&ldquo;</em>
+      </div>
+      <div class="quote-attr">— Max Frisch</div>
+    </section>
+
+    <!-- MORE -->
+    <section class="more">
+      <div class="section-bar">
+        <h2 class="section-title">
+          <span data-lang="de">Weiterlesen</span>
+          <span data-lang="en">More</span>
+        </h2>
+      </div>
+      <div class="grid-4">
+        {more.map(a => (
+          <ArticleTile
+            kicker={a.data.kicker}
+            title={a.data.title}
+            publication={a.data.publication}
+            year={a.data.year}
+            length={a.data.length}
+            swatch={a.data.swatch}
+            img={a.data.img}
+            pdf={a.data.pdf}
+          />
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .hero { padding: 24px 40px 80px; }
+  .hero-bar {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--ink); padding-bottom: 12px; margin-bottom: 24px;
+  }
+  .kicker {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .kicker.ink   { color: var(--ink); }
+  .kicker.muted { color: var(--fg-2); }
+
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
+    gap: 48px; align-items: start; margin-top: 24px; position: relative; z-index: 2;
+  }
+  .hero-video-wrap { position: relative; padding: 40px 28px 48px 24px; }
+  .orange-bg {
+    position: absolute; inset: 14px 28px 24px -8px;
+    background: #EE6A1F; transform: rotate(-2.4deg);
+    box-shadow: 0 1px 0 var(--hairline);
+  }
+  .hero-video {
+    display: block; width: 100%; aspect-ratio: 4/5; max-width: 520px;
+    object-fit: cover; transform: rotate(0.5deg);
+    box-shadow: 0 24px 60px -20px rgba(10,10,10,0.35); position: relative;
+  }
+  .hero-text { padding-top: 24px; }
+  .hero-name {
+    font-family: var(--font-display); font-size: clamp(4.5rem, 9vw, 12rem);
+    font-weight: 700; letter-spacing: -0.04em; line-height: 0.88;
+    color: #F2D72A; margin-bottom: 16px;
+  }
+  .hero-role {
+    font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 2rem);
+    font-weight: 700; letter-spacing: -0.02em; line-height: 1.1;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .hero-sub {
+    font-family: var(--font-body); font-size: clamp(1rem, 1.3vw, 1.25rem);
+    line-height: 1.45; margin: 0 0 32px; color: var(--fg-2); max-width: 42ch;
+  }
+  .cta {
+    font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent-ink); background: var(--accent);
+    text-decoration: none; padding: 10px 18px; font-weight: 700; display: inline-block;
+  }
+
+  .featured { padding: 96px 40px 0; }
+  .section-bar {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 48px;
+  }
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 3rem);
+    font-weight: 700; letter-spacing: -0.03em; margin: 0;
+  }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+  .quote { padding: 120px 40px; max-width: 1100px; margin: 0 auto; }
+  .quote-text {
+    font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 4.5rem);
+    font-weight: 700; line-height: 1.05; letter-spacing: -0.025em; text-wrap: balance;
+  }
+  .quote-text em { font-style: italic; color: var(--ink); }
+  .quote-text em.accent { color: var(--accent); }
+  .quote-attr {
+    margin-top: 24px; font-family: var(--font-ui); font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-2);
+  }
+  .more { padding: 0 40px 64px; }
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .hero, .featured, .more { padding-left: 20px; padding-right: 20px; }
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="Über mich — Lara Kutsch">
+  <Header active="about" />
+
+  <main>
+    <div class="page-bar">
+      <span class="kicker">
+        <span data-lang="de">Über mich</span>
+        <span data-lang="en">About</span>
+      </span>
+    </div>
+
+    <div class="grid">
+      <div class="bio">
+        <h1 class="bio-headline">
+          <span data-lang="de">Ich schreibe über das, was Menschen <em>tragen</em> — und das, was Menschen <em>trägt.</em></span>
+          <span data-lang="en">I write about what people <em>wear</em> — and what <em>carries</em> them.</span>
+        </h1>
+
+        <p class="bio-p">
+          <span data-lang="de">Geboren im Rheinland, gelandet in Hamburg. Erste Schreibversuche zwischen Schulzeitung und Praktikum, ernsthaft wurde es bei <em>Cosmopolitan</em> — als Online-Redakteurin habe ich dort gelernt, wie man eine Mode-Schlagzeile schreibt, die hält, was sie verspricht.</span>
+          <span data-lang="en">Born in the Rhineland, landed in Hamburg. First clippings between school paper and an internship; things got serious at <em>Cosmopolitan</em>, where I learned how to write a fashion headline that delivers what it promises.</span>
+        </p>
+        <p class="bio-p">
+          <span data-lang="de">Anschließend Textchefin beim <em>Seaside Magazin</em> — drei Jahre Heftplanung, Redigieren bis Mitternacht, das schöne Handwerk, einen Text so lange zu drehen, bis er wirklich klingt. Seit 2022 wieder freie Journalistin: Mode, Lifestyle, Reisen, Zeitgeist.</span>
+          <span data-lang="en">Then text editor at <em>Seaside Magazin</em> — three years of issue planning, line-editing past midnight, the slow craft of turning a draft until it finally rings. Freelance again since 2022: fashion, lifestyle, travel, zeitgeist.</span>
+        </p>
+        <p class="bio-p">
+          <span data-lang="de">Mode ist selten nur Mode. Sie ist ein Diagramm der Gegenwart — wer trägt was, wann, mit wem, und warum gerade jetzt? Das interessiert mich. Ich recherchiere lange, schreibe schnell, und glaube, dass ein Stück Stoff manchmal mehr verrät als ein Quartalsbericht.</span>
+          <span data-lang="en">Fashion is rarely just fashion. It's a diagram of the present — who wears what, when, with whom, and why now? That's what interests me. I research slowly, write quickly, and believe a piece of fabric can sometimes tell you more than a quarterly report.</span>
+        </p>
+      </div>
+
+      <aside class="aside">
+        <video autoplay loop muted playsinline class="about-video">
+          <source src="/about.mp4" type="video/mp4" />
+        </video>
+        <div class="video-cap">Lara Kutsch, Mailand Fashion Week</div>
+      </aside>
+    </div>
+
+    <!-- CV -->
+    <section class="cv">
+      <span class="kicker">CV</span>
+      <div class="cv-grid">
+        <div>
+          <h3 class="cv-heading">
+            <span data-lang="de">Veröffentlicht in</span>
+            <span data-lang="en">Published in</span>
+          </h3>
+          {[
+            ['Cosmopolitan',              'seit 2019'],
+            ['Seaside Magazin',           'seit 2020'],
+            ['Handelsblatt',              'seit 2022'],
+            ['Süddeutsche Zeitung Magazin','2023'],
+            ['Brigitte',                  '2018'],
+          ].map(([pub, date]) => (
+            <div class="cv-row">
+              <span class="cv-name">{pub}</span>
+              <span class="cv-date">{date}</span>
+            </div>
+          ))}
+        </div>
+        <div>
+          <h3 class="cv-heading">
+            <span data-lang="de">Stationen</span>
+            <span data-lang="en">Background</span>
+          </h3>
+          {[
+            ['Online-Redakteurin, Cosmopolitan', '2019–2021'],
+            ['Textchefin, Seaside Magazin',      '2021–2022'],
+            ['Freie Journalistin',               'seit 2022'],
+            ['Mentorin, Reporterforum',          '2024'],
+            ['Volontariat, Brigitte',            '2017–2019'],
+          ].map(([role, date]) => (
+            <div class="cv-row">
+              <span class="cv-name">{role}</span>
+              <span class="cv-date">{date}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main { padding: 40px 40px 0; }
+
+  .page-bar {
+    border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 48px;
+  }
+  .kicker {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 600; color: var(--ink);
+  }
+
+  .grid {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 80px; align-items: start; margin-bottom: 96px;
+  }
+
+  .bio-headline {
+    font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-weight: 700; letter-spacing: -0.035em; line-height: 0.92;
+    margin: 0 0 32px; text-wrap: balance;
+  }
+  .bio-headline em { font-style: italic; color: var(--accent); }
+
+  .bio-p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.6;
+    max-width: 56ch; color: var(--fg-1); margin: 0 0 18px;
+  }
+  .bio-p em { font-style: italic; }
+
+  .about-video {
+    display: block; width: 100%; max-width: 340px;
+    aspect-ratio: 4/5; object-fit: cover;
+  }
+  .video-cap {
+    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--fg-2); margin-top: 14px;
+  }
+
+  .cv {
+    border-top: 1px solid var(--ink); padding-top: 24px; padding-bottom: 32px;
+  }
+  .cv-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 32px;
+  }
+  .cv-heading {
+    font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: 700; letter-spacing: -0.02em; margin: 0 0 18px;
+  }
+  .cv-row {
+    display: flex; justify-content: space-between;
+    border-top: 1px solid var(--hairline); padding: 14px 0;
+  }
+  .cv-name { font-family: var(--font-body); font-size: 16px; }
+  .cv-date {
+    font-family: var(--font-ui); font-size: 12px;
+    letter-spacing: 0.04em; color: var(--fg-2);
+  }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; gap: 40px; }
+    .cv-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 600px) {
+    main { padding: 20px 20px 0; }
+  }
+</style>

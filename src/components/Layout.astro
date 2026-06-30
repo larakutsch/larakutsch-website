@@ -1,0 +1,98 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Lara Kutsch — Freie Journalistin',
+  description = 'Freie Journalistin aus Hamburg. Mode, Lifestyle, Reisen, Zeitgeist.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+  <div id="cursor"><span id="cursor-label"></span></div>
+  <slot />
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const cursorLabel = document.getElementById('cursor-label');
+    if (cursor && cursorLabel) {
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+      document.addEventListener('mouseover', (e) => {
+        const t = (e.target as Element).closest('[data-cursor]');
+        if (t) {
+          const v = t.getAttribute('data-cursor');
+          const label = t.getAttribute('data-cursor-label') || (v || '').toUpperCase();
+          cursor.classList.add('is-big');
+          cursorLabel.textContent = label;
+        } else {
+          cursor.classList.remove('is-big');
+          cursorLabel.textContent = '';
+        }
+      });
+    }
+
+    // Language toggle
+    const langBtn = document.getElementById('lang-btn');
+    if (langBtn) {
+      const DE = document.querySelectorAll('[data-lang="de"]');
+      const EN = document.querySelectorAll('[data-lang="en"]');
+      let lang = localStorage.getItem('lang') || 'de';
+
+      function applyLang() {
+        DE.forEach(el => (el as HTMLElement).hidden = lang !== 'de');
+        EN.forEach(el => (el as HTMLElement).hidden = lang !== 'en');
+        langBtn!.textContent = lang === 'de' ? 'EN' : 'DE';
+      }
+      applyLang();
+
+      langBtn.addEventListener('click', () => {
+        lang = lang === 'de' ? 'en' : 'de';
+        localStorage.setItem('lang', lang);
+        applyLang();
+      });
+    }
+
+    // Sticky header
+    const header = document.querySelector('header');
+    if (header) {
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+      });
+    }
+  </script>
+</body>
+</html>
+
+<style>
+  #cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    width: 18px; height: 18px;
+    border-radius: 999px;
+    background: #EE6A1F;
+    color: #fff;
+    transform: translate(-50%, -50%);
+    transition: width 240ms var(--ease-spring), height 240ms var(--ease-spring);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
+  }
+  #cursor.is-big { width: 80px; height: 80px; }
+  @media (max-width: 720px), (hover: none) { #cursor { display: none; } }
+</style>
