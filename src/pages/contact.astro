@@ -22,13 +22,13 @@ import Footer from '../components/Footer.astro';
         </h1>
 
         <p class="intro">
-          <span data-lang="de">Schreib mir gerne. Ich antworte innerhalb von zwei Werktagen, meistens schneller. Allgemeine Anfragen, Interview-Wünsche, Themenvorschläge: alles willkommen.</span>
-          <span data-lang="en">Feel free to write. I reply within two working days, usually sooner. General enquiries, interview requests, story pitches: all welcome.</span>
+          <span data-lang="de">Schreib mir gerne. Ich antworte innerhalb von 24 Stunden, meistens schneller. Allgemeine Anfragen, Interview-Wünsche, Themenvorschläge: alles willkommen.</span>
+          <span data-lang="en">Feel free to write. I reply within 24 hours, usually sooner. General enquiries, interview requests, story pitches: all welcome.</span>
         </p>
 
         <div class="channels">
-          <a href="mailto:hallo@larakutsch.de" class="mail-row" data-cursor="mail" data-cursor-label="MAIL">
-            <span class="mail-addr">hallo@larakutsch.de</span>
+          <a href="mailto:larakutsch@live.de" class="mail-row" data-cursor="mail" data-cursor-label="MAIL">
+            <span class="mail-addr">larakutsch@live.de</span>
             <span class="mail-label">
               <span data-lang="de">E-Mail</span>
               <span data-lang="en">Email</span>
@@ -37,116 +37,34 @@ import Footer from '../components/Footer.astro';
           </a>
           <div class="social-row">
             <a href="https://www.instagram.com/lara_kutsch/" target="_blank" rel="noopener" class="social-link">
-              <span>@larakutsch</span>
-              <span class="social-label">Instagram ↗</span>
+              Instagram ↗
             </a>
             <a href="https://www.linkedin.com/in/lara-kutsch-93151a1b9/" target="_blank" rel="noopener" class="social-link">
-              <span>Lara Kutsch</span>
-              <span class="social-label">LinkedIn ↗</span>
+              LinkedIn ↗
             </a>
           </div>
         </div>
       </div>
 
-      <form
-        name="kontakt"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        class="contact-form"
-        id="contact-form"
-      >
-        <input type="hidden" name="form-name" value="kontakt" />
-        <p hidden><label>Nicht ausfüllen: <input name="bot-field" /></label></p>
-
-        <span class="form-kicker">
+      <div class="mailto-panel">
+        <span class="panel-kicker">
           <span data-lang="de">Direkt schreiben</span>
           <span data-lang="en">Write directly</span>
         </span>
-
-        <div class="success-msg" id="success-msg" hidden>
-          <div class="success-title">
-            <span data-lang="de">Danke. Ich melde mich.</span>
-            <span data-lang="en">Thanks. Talk soon.</span>
-          </div>
-          <div class="success-sub">
-            <span data-lang="de">Antwort meist innerhalb von 48 Stunden.</span>
-            <span data-lang="en">Usually within 48 hours.</span>
-          </div>
-        </div>
-
-        <div id="form-fields">
-          <label class="field">
-            <span class="field-label">Name</span>
-            <input name="name" type="text" placeholder="Name" required />
-          </label>
-          <label class="field">
-            <span class="field-label">E-Mail</span>
-            <input name="email" type="email" placeholder="name@verlag.de" required />
-          </label>
-          <label class="field">
-            <span class="field-label">
-              <span data-lang="de">Anliegen</span>
-              <span data-lang="en">Subject</span>
-            </span>
-            <select name="subject" id="subject-select">
-              <option value="pitch">Pitch/Themenidee</option>
-              <option value="collab">Zusammenarbeit</option>
-              <option value="interview">Interview-Anfrage</option>
-              <option value="other">Sonstiges</option>
-            </select>
-          </label>
-          <label class="field">
-            <span class="field-label">
-              <span data-lang="de">Nachricht</span>
-              <span data-lang="en">Message</span>
-            </span>
-            <textarea name="message" rows="5" placeholder="Worum geht es?" required></textarea>
-          </label>
-          <button type="submit" data-cursor="mail" data-cursor-label="SEND">
-            <span data-lang="de">Senden →</span>
-            <span data-lang="en">Send →</span>
-          </button>
-        </div>
-      </form>
+        <p class="panel-text">
+          <span data-lang="de">Klick auf den Button — dein E-Mail-Programm öffnet sich mit meiner Adresse bereits eingetragen.</span>
+          <span data-lang="en">Click the button — your email client opens with my address already filled in.</span>
+        </p>
+        <a href="mailto:larakutsch@live.de" class="mailto-btn" data-cursor="mail" data-cursor-label="MAIL">
+          <span data-lang="de">E-Mail schreiben →</span>
+          <span data-lang="en">Write an email →</span>
+        </a>
+      </div>
     </div>
   </main>
 
   <Footer />
 </Layout>
-
-<script>
-  // Translate select options when lang changes
-  const SELECT_OPTIONS: Record<string, Record<string, string>> = {
-    de: { pitch: 'Pitch/Themenidee', collab: 'Zusammenarbeit', interview: 'Interview-Anfrage', other: 'Sonstiges' },
-    en: { pitch: 'Pitch / Story idea', collab: 'Collaboration', interview: 'Interview request', other: 'Other' },
-  };
-  const sel = document.getElementById('subject-select') as HTMLSelectElement | null;
-  function translateSelect(lang: string) {
-    if (!sel) return;
-    Array.from(sel.options).forEach(opt => {
-      opt.text = SELECT_OPTIONS[lang]?.[opt.value] ?? opt.text;
-    });
-  }
-  // piggyback on the lang button that Layout.astro wires up
-  document.getElementById('lang-btn')?.addEventListener('click', () => {
-    const lang = localStorage.getItem('lang') || 'de';
-    translateSelect(lang);
-  });
-  translateSelect(localStorage.getItem('lang') || 'de');
-
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  const fields = document.getElementById('form-fields');
-  const successMsg = document.getElementById('success-msg');
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    await fetch('/', { method: 'POST', body: data });
-    if (fields) fields.hidden = true;
-    if (successMsg) successMsg.hidden = false;
-  });
-</script>
 
 <style>
   main { padding: 40px 40px 0; }
@@ -181,67 +99,43 @@ import Footer from '../components/Footer.astro';
     padding: 20px 0; text-decoration: none; color: var(--ink); margin-bottom: 18px;
   }
   .mail-addr {
-    font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-family: var(--font-display); font-size: clamp(1.25rem, 2.5vw, 2rem);
     font-weight: 700; letter-spacing: -0.025em;
   }
   .mail-label {
     font-family: var(--font-ui); font-size: 11px;
     letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-2);
+    white-space: nowrap;
   }
 
   .social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .social-link {
     border-bottom: 1px solid var(--hairline); padding: 14px 0;
     text-decoration: none; color: var(--ink);
-    display: flex; justify-content: space-between;
     font-family: var(--font-body); font-size: 16px;
   }
-  .social-label {
-    font-family: var(--font-ui); font-size: 11px;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-2);
-  }
 
-  /* Form */
-  .contact-form {
-    display: grid; gap: 20px; padding: 32px;
+  /* Mailto panel */
+  .mailto-panel {
+    padding: 40px 36px;
     border: 2px solid var(--ink); background: var(--bg-2);
+    display: grid; gap: 24px; align-content: start;
   }
-  .form-kicker {
+  .panel-kicker {
     font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em;
     text-transform: uppercase; font-weight: 600; color: var(--ink);
   }
-  #form-fields { display: grid; gap: 20px; }
-
-  .field { display: grid; gap: 6px; }
-  .field-label {
-    font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.16em;
-    text-transform: uppercase; font-weight: 600; color: var(--fg-2);
+  .panel-text {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+    color: var(--fg-2); margin: 0; max-width: 38ch;
   }
-  .field input,
-  .field select {
-    border: none; border-bottom: 1px solid var(--ink);
-    background: transparent; padding: 10px 0;
-    font-family: var(--font-body); font-size: 16px; color: var(--ink); outline: none;
-    width: 100%;
-  }
-  .field textarea {
-    border: 1px solid var(--ink); background: transparent; padding: 10px;
-    font-family: var(--font-body); font-size: 16px; color: var(--ink); outline: none;
-    resize: vertical; width: 100%;
-  }
-  button[type="submit"] {
-    background: var(--accent); color: var(--accent-ink); border: none;
+  .mailto-btn {
+    display: inline-block; align-self: start;
+    background: var(--accent); color: var(--accent-ink); text-decoration: none;
     padding: 16px 24px; font-family: var(--font-ui); font-size: 12px;
     letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700;
-    margin-top: 8px; width: 100%;
   }
-
-  .success-msg { padding: 40px 0; }
-  .success-title {
-    font-family: var(--font-display); font-size: 32px;
-    font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;
-  }
-  .success-sub { font-family: var(--font-body); font-size: 15px; color: var(--fg-2); }
+  .mailto-btn:hover { color: var(--accent-ink); }
 
   @media (max-width: 900px) {
     .grid { grid-template-columns: 1fr; gap: 40px; }

@@ -10,7 +10,12 @@ const { active } = Astro.props;
       <span class="dot"></span>
       Home
     </a>
-    <nav>
+
+    <button class="burger" id="burger-btn" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="main-nav">
       <a href="/portfolio" class:list={['nav-link', { active: active === 'portfolio' }]}>
         <span data-lang="de">Veröffentlichungen</span>
         <span data-lang="en">Work</span>
@@ -28,18 +33,28 @@ const { active } = Astro.props;
   </div>
 </header>
 
+<script>
+  const burger = document.getElementById('burger-btn');
+  const nav    = document.getElementById('main-nav');
+  burger?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(!!open));
+  });
+</script>
+
 <style>
   header {
     position: sticky; top: 0; z-index: 50;
     background: transparent;
     border-bottom: 1px solid transparent;
-    transition: all 240ms var(--ease-out);
+    transition: background 240ms var(--ease-out), border-color 240ms var(--ease-out);
   }
   header.scrolled {
     background: rgba(246,243,238,0.82);
     backdrop-filter: blur(14px);
     border-bottom-color: var(--hairline);
   }
+
   .inner {
     display: flex; align-items: center; justify-content: space-between;
     padding: 22px 40px;
@@ -52,12 +67,14 @@ const { active } = Astro.props;
     letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
     color: var(--ink); text-decoration: none;
     display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
   }
   .dot {
     width: 8px; height: 8px; border-radius: 999px;
     background: var(--signal-yellow); flex-shrink: 0;
   }
 
+  /* Desktop nav */
   nav {
     display: flex; gap: 28px; align-items: center;
   }
@@ -67,13 +84,62 @@ const { active } = Astro.props;
     color: var(--ink); text-decoration: none;
     border-bottom: 2px solid transparent; padding-bottom: 3px;
     transition: border-color 200ms;
+    white-space: nowrap;
   }
   .nav-link.active { border-bottom-color: var(--accent); }
 
   .lang-btn {
     background: transparent; border: none;
     font-family: var(--font-ui); font-size: 12px;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--fg-2);
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-2);
+  }
+
+  /* Hamburger — hidden on desktop */
+  .burger { display: none; }
+
+  /* ── Mobile ───────────────────────────────────────── */
+  @media (max-width: 720px) {
+    .inner {
+      padding: 16px 20px;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    header.scrolled .inner { padding: 12px 20px; }
+
+    /* Three-line burger button */
+    .burger {
+      display: flex; flex-direction: column; justify-content: center; gap: 5px;
+      background: none; border: none; padding: 4px;
+      width: 32px; height: 32px;
+    }
+    .burger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--ink); border-radius: 2px;
+      transition: opacity 180ms, transform 180ms;
+    }
+
+    /* Nav hidden by default on mobile */
+    nav {
+      display: none;
+      flex-direction: column; align-items: flex-start;
+      gap: 0;
+      width: 100%;
+      padding: 4px 0 12px;
+      border-top: 1px solid var(--hairline);
+      margin-top: 8px;
+    }
+    nav.open { display: flex; }
+
+    .nav-link {
+      width: 100%; padding: 13px 0;
+      border-bottom: 1px solid var(--hairline);
+      border-left: none; border-right: none; border-top: none;
+      font-size: 13px; letter-spacing: 0.14em;
+    }
+    .nav-link.active { border-bottom-color: var(--hairline); color: var(--accent); }
+
+    .lang-btn {
+      padding: 13px 0; width: 100%; text-align: left; font-size: 13px;
+    }
   }
 </style>

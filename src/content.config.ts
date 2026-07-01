@@ -13,6 +13,7 @@ const articles = defineCollection({
     swatch:      z.string(),
     img:         z.string().optional(),
     imgPosition: z.string().optional().default('center'),
+    url:         z.string().optional(),
     pdf:         z.string().optional(),
     featured:    z.boolean().optional().default(false),
     order:       z.number().optional().default(99),

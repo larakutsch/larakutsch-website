@@ -5,7 +5,10 @@ import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 const allArticles = await getCollection('articles');
-const articles = allArticles.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const articles = allArticles.sort((a, b) => {
+  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
+  return (a.data.order ?? 99) - (b.data.order ?? 99);
+});
 ---
 <Layout title="Veröffentlichungen — Lara Kutsch">
   <Header active="portfolio" />
@@ -41,9 +44,9 @@ const articles = allArticles.sort((a, b) => (a.data.order ?? 99) - (b.data.order
     <div class="article-list">
       {articles.map((a, i) => (
         <a
-          href={a.data.pdf ? `/${a.data.pdf}` : '#'}
-          target={a.data.pdf ? '_blank' : undefined}
-          rel={a.data.pdf ? 'noopener' : undefined}
+          href={a.data.url ?? (a.data.pdf ? `/${a.data.pdf}` : '#')}
+          target={a.data.url || a.data.pdf ? '_blank' : undefined}
+          rel={a.data.url || a.data.pdf ? 'noopener' : undefined}
           class="row"
           data-topic={a.data.topic}
           data-cursor="read"

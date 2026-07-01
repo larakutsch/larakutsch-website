@@ -14,84 +14,44 @@ import Footer from '../components/Footer.astro';
       </span>
     </div>
 
-    <div class="grid">
-      <div class="bio">
-        <h1 class="bio-headline">
-          <span data-lang="de">Ich schreibe über das, was Menschen <em>tragen</em> — und das, was Menschen <em>trägt.</em></span>
-          <span data-lang="en">I write about what people <em>wear</em> — and what <em>carries</em> them.</span>
-        </h1>
+    <h1 class="bio-headline">
+      <span data-lang="de">Ich schreibe über das, was Menschen <em>tragen</em> — und das, was Menschen <em>trägt.</em></span>
+      <span data-lang="en">I write about what people <em>wear</em> — and what <em>carries</em> them.</span>
+    </h1>
 
-        <p class="bio-p">
-          <span data-lang="de">Geboren im Rheinland, gelandet in Hamburg. Erste Schreibversuche zwischen Schulzeitung und Praktikum, ernsthaft wurde es bei <em>Cosmopolitan</em> — als Online-Redakteurin habe ich dort gelernt, wie man eine Mode-Schlagzeile schreibt, die hält, was sie verspricht.</span>
-          <span data-lang="en">Born in the Rhineland, landed in Hamburg. First clippings between school paper and an internship; things got serious at <em>Cosmopolitan</em>, where I learned how to write a fashion headline that delivers what it promises.</span>
-        </p>
-        <p class="bio-p">
-          <span data-lang="de">Anschließend Textchefin beim <em>Seaside Magazin</em> — drei Jahre Heftplanung, Redigieren bis Mitternacht, das schöne Handwerk, einen Text so lange zu drehen, bis er wirklich klingt. Seit 2022 wieder freie Journalistin: Mode, Lifestyle, Reisen, Zeitgeist.</span>
-          <span data-lang="en">Then text editor at <em>Seaside Magazin</em> — three years of issue planning, line-editing past midnight, the slow craft of turning a draft until it finally rings. Freelance again since 2022: fashion, lifestyle, travel, zeitgeist.</span>
-        </p>
-        <p class="bio-p">
-          <span data-lang="de">Mode ist selten nur Mode. Sie ist ein Diagramm der Gegenwart — wer trägt was, wann, mit wem, und warum gerade jetzt? Das interessiert mich. Ich recherchiere lange, schreibe schnell, und glaube, dass ein Stück Stoff manchmal mehr verrät als ein Quartalsbericht.</span>
-          <span data-lang="en">Fashion is rarely just fashion. It's a diagram of the present — who wears what, when, with whom, and why now? That's what interests me. I research slowly, write quickly, and believe a piece of fabric can sometimes tell you more than a quarterly report.</span>
-        </p>
-      </div>
-
-      <aside class="aside">
-        <video autoplay loop muted playsinline class="about-video">
-          <source src="/about.mp4" type="video/mp4" />
-        </video>
-        <div class="video-cap">Lara Kutsch, Mailand Fashion Week</div>
-      </aside>
+    <div class="video-block">
+      <video autoplay loop muted playsinline class="about-video">
+        <source src="/about.mp4" type="video/mp4" />
+      </video>
+      <div class="video-cap">Lara Kutsch, Mailand Fashion Week</div>
     </div>
 
-    <!-- CV -->
-    <section class="cv">
-      <span class="kicker">CV</span>
-      <div class="cv-grid">
-        <div>
-          <h3 class="cv-heading">
-            <span data-lang="de">Veröffentlicht in</span>
-            <span data-lang="en">Published in</span>
-          </h3>
-          {[
-            ['Cosmopolitan',              'seit 2019'],
-            ['Seaside Magazin',           'seit 2020'],
-            ['Handelsblatt',              'seit 2022'],
-            ['Süddeutsche Zeitung Magazin','2023'],
-            ['Brigitte',                  '2018'],
-          ].map(([pub, date]) => (
-            <div class="cv-row">
-              <span class="cv-name">{pub}</span>
-              <span class="cv-date">{date}</span>
-            </div>
-          ))}
-        </div>
-        <div>
-          <h3 class="cv-heading">
-            <span data-lang="de">Stationen</span>
-            <span data-lang="en">Background</span>
-          </h3>
-          {[
-            ['Online-Redakteurin, Cosmopolitan', '2019–2021'],
-            ['Textchefin, Seaside Magazin',      '2021–2022'],
-            ['Freie Journalistin',               'seit 2022'],
-            ['Mentorin, Reporterforum',          '2024'],
-            ['Volontariat, Brigitte',            '2017–2019'],
-          ].map(([role, date]) => (
-            <div class="cv-row">
-              <span class="cv-name">{role}</span>
-              <span class="cv-date">{date}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <div class="bio">
+      <p class="bio-p">
+        <span data-lang="de">Schon bevor ich als junges Mädchen überhaupt richtig schreiben konnte, stand für mich fest: Ich will Geschichten erzählen, am liebsten mit Blick über den Tellerrand. Diesem Blick bin ich gleich gefolgt – aus einem kleinen Kurort in Niedersachsen ging es für mich nach Argentinien, wo ich meine ersten Zeilen für die <em>Neue Osnabrücker Zeitung</em> schrieb: eine Kolumne über mein Auslandsjahr.</span>
+        <span data-lang="en">Long before I could actually write properly as a young girl, one thing was clear to me: I want to tell stories, preferably with a view beyond the horizon. I followed that view — from a small spa town in Lower Saxony, I went to Argentina, where I wrote my first lines for the <em>Neue Osnabrücker Zeitung</em>: a column about my exchange year.</span>
+      </p>
+      <p class="bio-p">
+        <span data-lang="de">Diese frühe journalistische Neugier trug mich weiter. Kurz vor dem Abitur gewann ich mit einem Projekt, das Menschen mit Migrationshintergrund porträtierte, einen Preis der <em>Bertelsmann Stiftung</em> und wusste damit endgültig, wohin die Reise gehen sollte. Es folgten ein Romanistik-Studium in Münster und ein Erasmus-Semester in Italien, dazwischen Stationen beim Studierendenradio, in der Werbebranche und bei „orange by Handelsblatt", einem Portal für einfach erklärte Wirtschafts- und Finanzthemen. Nebenbei belegte ich freiwillig Seminare in Modegeschichte und absolvierte ein Praktikum beim <em>Braut & Bräutigam Magazin</em>, wo ich Artikel schrieb und Shootings unterstützte.</span>
+        <span data-lang="en">This early journalistic curiosity carried me further. Shortly before my <em>Abitur</em>, I won a prize from the <em>Bertelsmann Stiftung</em> for a project portraying people with a migration background — and knew once and for all where the journey should lead. What followed was a Romance Studies degree in Münster and an Erasmus semester in Italy, with stints at student radio, in advertising, and at "orange by Handelsblatt", a portal explaining business and finance in plain terms. On the side, I voluntarily took seminars in fashion history and completed an internship at <em>Braut & Bräutigam Magazin</em>, writing articles and assisting with shoots.</span>
+      </p>
+      <p class="bio-p">
+        <span data-lang="de">Um dieser Leidenschaft ein professionelles Fundament zu geben, ging ich an die Journalistenschule der <em>Bauer Media Group</em> in Hamburg, hospitierte in verschiedenen Redaktionen des Verlags und besuchte Schulungen der Akademie für Publizistik. Fast vier Jahre habe ich danach das Moderessort von <em>Cosmopolitan.de</em> verantwortet: Trends analysiert, Interviews geführt, SEO-Strategien entwickelt und eng mit Kunden zusammengearbeitet. Anschließend war ich Textchefin beim <em>Seaside Magazin</em> und durfte dort lernen, wie befriedigend es ist, wenn ein fremder Text plötzlich rund klingt.</span>
+        <span data-lang="en">To give this passion a professional foundation, I attended the journalism school of the <em>Bauer Media Group</em> in Hamburg, worked in various editorial offices of the publishing house and attended courses at the Akademie für Publizistik. I then spent nearly four years heading the fashion desk at <em>Cosmopolitan.de</em>: analysing trends, conducting interviews, developing SEO strategies and working closely with clients. After that, I was text editor at <em>Seaside Magazin</em> — where I learned how satisfying it is when someone else's text suddenly sounds just right.</span>
+      </p>
+      <p class="bio-p">
+        <span data-lang="de">Seit Juli 2026 arbeite ich nun freiberuflich als Journalistin, wage den Sprung in die Selbstständigkeit – und freue mich auf alles, was kommt!</span>
+        <span data-lang="en">Since July 2026, I have been working as a freelance journalist, taking the leap into self-employment — and looking forward to everything that comes!</span>
+      </p>
+    </div>
   </main>
 
   <Footer />
 </Layout>
 
 <style>
-  main { padding: 40px 40px 0; }
+  /* ── Base (mobile-first) ─────────────────────────── */
+  main { padding: 40px 20px 64px; }
 
   .page-bar {
     border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 48px;
@@ -101,26 +61,16 @@ import Footer from '../components/Footer.astro';
     text-transform: uppercase; font-weight: 600; color: var(--ink);
   }
 
-  .grid {
-    display: grid; grid-template-columns: 1.4fr 1fr;
-    gap: 80px; align-items: start; margin-bottom: 96px;
-  }
-
   .bio-headline {
-    font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 5.5rem);
     font-weight: 700; letter-spacing: -0.035em; line-height: 0.92;
-    margin: 0 0 32px; text-wrap: balance;
+    margin: 0 0 48px; text-wrap: balance;
   }
   .bio-headline em { font-style: italic; color: var(--accent); }
 
-  .bio-p {
-    font-family: var(--font-body); font-size: 18px; line-height: 1.6;
-    max-width: 56ch; color: var(--fg-1); margin: 0 0 18px;
-  }
-  .bio-p em { font-style: italic; }
-
+  .video-block { margin-bottom: 56px; }
   .about-video {
-    display: block; width: 100%; max-width: 340px;
+    display: block; width: 100%; max-width: 100%;
     aspect-ratio: 4/5; object-fit: cover;
   }
   .video-cap {
@@ -128,31 +78,36 @@ import Footer from '../components/Footer.astro';
     text-transform: uppercase; color: var(--fg-2); margin-top: 14px;
   }
 
-  .cv {
-    border-top: 1px solid var(--ink); padding-top: 24px; padding-bottom: 32px;
+  .bio-p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.6;
+    max-width: 56ch; color: var(--fg-1); margin: 0 0 18px;
   }
-  .cv-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 32px;
-  }
-  .cv-heading {
-    font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.75rem);
-    font-weight: 700; letter-spacing: -0.02em; margin: 0 0 18px;
-  }
-  .cv-row {
-    display: flex; justify-content: space-between;
-    border-top: 1px solid var(--hairline); padding: 14px 0;
-  }
-  .cv-name { font-family: var(--font-body); font-size: 16px; }
-  .cv-date {
-    font-family: var(--font-ui); font-size: 12px;
-    letter-spacing: 0.04em; color: var(--fg-2);
-  }
+  .bio-p em { font-style: italic; }
 
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; gap: 40px; }
-    .cv-grid { grid-template-columns: 1fr; gap: 32px; }
-  }
-  @media (max-width: 600px) {
-    main { padding: 20px 20px 0; }
+  /* ── Desktop: headline full-width, then 2-column ─── */
+  @media (min-width: 721px) {
+    main {
+      padding: 40px 40px 96px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      column-gap: 72px;
+      max-width: 1200px;
+    }
+    /* Row 1: page-bar full width */
+    .page-bar { grid-column: 1 / -1; }
+
+    /* Row 2: headline full width */
+    .bio-headline {
+      grid-column: 1 / -1;
+      margin-bottom: 56px;
+    }
+
+    /* Row 3: bio left, video right */
+    .bio         { grid-column: 1; grid-row: 3; align-self: start; }
+    .video-block {
+      grid-column: 2; grid-row: 3;
+      margin-bottom: 0; align-self: start; position: sticky; top: 90px;
+    }
+    .about-video { max-width: 100%; }
   }
 </style>
