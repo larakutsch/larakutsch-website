@@ -1,7 +1,7 @@
 ---
 kicker: Interview
 title: Die Elevator Boys im Interview
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2024
 length: 5 min
 topic: lifestyle

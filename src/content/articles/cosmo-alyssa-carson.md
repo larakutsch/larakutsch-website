@@ -1,7 +1,7 @@
 ---
 kicker: Interview
 title: Astronautin Alyssa Carson im Interview
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2023
 length: 6 min
 topic: lifestyle

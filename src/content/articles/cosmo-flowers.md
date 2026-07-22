@@ -1,7 +1,7 @@
 ---
 kicker: Kolumne
 title: I can buy myself flowers!
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2023
 length: 4 min
 topic: lifestyle

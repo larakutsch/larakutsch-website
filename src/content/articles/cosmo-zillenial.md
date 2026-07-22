@@ -1,7 +1,7 @@
 ---
 kicker: Kolumne
 title: 'typisch „Zillenial"'
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2025
 length: 4 min
 topic: zeitgeist

@@ -6,6 +6,11 @@ interface Props {
   description?: string;
 }
 
+// ── Wartungsmodus ─────────────────────────────────────────────────────────────
+// Auf false setzen und pushen, um zur normalen Website zurückzukehren.
+const MAINTENANCE_MODE = false;
+// ─────────────────────────────────────────────────────────────────────────────
+
 const {
   title = 'Lara Kutsch — Freie Journalistin',
   description = 'Freie Journalistin aus Hamburg. Mode, Lifestyle, Reisen, Zeitgeist.',
@@ -17,12 +22,28 @@ const {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
-  <title>{title}</title>
+  <title>{MAINTENANCE_MODE ? 'Lara Kutsch — Bald zurück' : title}</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 <body>
-  <div id="cursor"><span id="cursor-label"></span></div>
-  <slot />
+
+{MAINTENANCE_MODE ? (
+  <div class="m-wrap">
+    <p class="m-label">Lara Kutsch · Freie Journalistin</p>
+    <h1 class="m-title">Bald zurück.</h1>
+    <p class="m-text">
+      Ich arbeite derzeit an meiner Website<br />
+      und bin demnächst für dich da.
+    </p>
+  </div>
+) : (
+  <Fragment>
+    <div id="cursor"><span id="cursor-label"></span></div>
+    <slot />
+  </Fragment>
+)}
+
+{!MAINTENANCE_MODE && (
   <script>
     // Custom cursor
     const cursor = document.getElementById('cursor');
@@ -75,18 +96,44 @@ const {
       });
     }
   </script>
+)}
+
 </body>
 </html>
 
 <style>
+  /* ── Wartungsseite ─────────────────────────────── */
+  .m-wrap {
+    min-height: 100svh;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 48px 40px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .m-label {
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 600; color: var(--fg-2);
+    margin: 0 0 40px;
+  }
+  .m-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 700; letter-spacing: -0.04em; line-height: 0.9;
+    margin: 0 0 40px; color: var(--ink);
+  }
+  .m-text {
+    font-family: var(--font-body); font-size: clamp(1.1rem, 2vw, 1.375rem);
+    line-height: 1.6; color: var(--fg-2);
+    max-width: 40ch; margin: 0;
+  }
+
+  /* ── Cursor (Normalseite) ──────────────────────── */
   #cursor {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    width: 18px; height: 18px;
-    border-radius: 999px;
-    background: #EE6A1F;
-    color: #fff;
+    position: fixed; pointer-events: none; z-index: 9999;
+    width: 18px; height: 18px; border-radius: 999px;
+    background: #EE6A1F; color: #fff;
     transform: translate(-50%, -50%);
     transition: width 240ms var(--ease-spring), height 240ms var(--ease-spring);
     display: flex; align-items: center; justify-content: center;

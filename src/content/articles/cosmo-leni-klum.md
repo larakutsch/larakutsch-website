@@ -1,7 +1,7 @@
 ---
 kicker: Interview
 title: Leni Klum im Interview
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2023
 length: 5 min
 topic: lifestyle

@@ -1,7 +1,7 @@
 ---
 kicker: Kolumne
 title: Frau im Ferrari
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2024
 length: 4 min
 topic: zeitgeist

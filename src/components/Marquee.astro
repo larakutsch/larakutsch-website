@@ -10,7 +10,8 @@ const triple = [...items, ...items, ...items];
   <div class="track">
     {triple.map((item) => (
       <span class="item">
-        {item}<span class="sep">·</span>
+        <span class="label">{item}</span>
+        <span class="sep">·</span>
       </span>
     ))}
   </div>
@@ -30,13 +31,14 @@ const triple = [...items, ...items, ...items];
     animation: marquee 28s linear infinite;
   }
   .item {
+    display: inline-flex; align-items: center; gap: 40px;
     font-family: var(--font-display); font-size: 36px;
-    font-weight: 700; margin: 0 32px; letter-spacing: -0.02em;
-    color: var(--ink);
+    font-weight: 700; margin: 0 20px; letter-spacing: -0.02em;
+    color: var(--ink); vertical-align: middle;
   }
   .accent .item { color: var(--accent-ink); }
   .sep {
-    color: var(--fg-2); margin: 0 24px; font-weight: 400;
+    line-height: 1; color: var(--accent);
   }
   .accent .sep { color: var(--accent-ink); }
 </style>

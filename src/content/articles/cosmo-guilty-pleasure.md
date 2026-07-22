@@ -6,7 +6,6 @@ year: 2025
 length: 4 min
 topic: lifestyle
 swatch: "linear-gradient(135deg, #F6F0E4, #D4C4A0)"
-img: cosmo-guilty-pleasure.png
 pdf: cosmo-guilty-pleasure.pdf
 featured: true
 order: 3

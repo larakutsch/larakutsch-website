@@ -1,7 +1,7 @@
 ---
 kicker: Interview
 title: "Stärkste Frau Deutschlands: Katharina Isele im Interview"
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2024
 length: 6 min
 topic: lifestyle

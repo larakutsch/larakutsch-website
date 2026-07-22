@@ -1,0 +1,80 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="Impressum — Lara Kutsch">
+  <Header active="home" />
+
+  <main>
+    <div class="page-bar">
+      <span class="kicker">Impressum</span>
+    </div>
+
+    <div class="legal">
+      <h1>Impressum</h1>
+
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>Lara Antonia Kutsch<br>
+      Eppendorfer Weg 276<br>
+      20251 Hamburg</p>
+
+      <h2>Kontakt</h2>
+      <p>E-Mail: <a href="mailto:larakutsch@live.de">larakutsch@live.de</a></p>
+
+      <h2>Umsatzsteuer</h2>
+      <p>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Kleinunternehmerregelung).</p>
+
+      <h2>Redaktionell verantwortlich (§ 18 Abs. 2 MStV)</h2>
+      <p>Lara Antonia Kutsch<br>
+      Eppendorfer Weg 276<br>
+      20251 Hamburg</p>
+
+      <h2>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
+      <p>Ich bin nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main { padding: 40px 40px 96px; }
+
+  .page-bar {
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 14px; margin-bottom: 48px;
+  }
+  .kicker {
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink);
+  }
+
+  .legal { max-width: 68ch; }
+
+  .legal h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1;
+    margin: 0 0 48px; color: var(--ink);
+  }
+  .legal h2 {
+    font-family: var(--font-ui); font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    font-weight: 600; color: var(--fg-2);
+    margin: 40px 0 10px;
+  }
+  .legal p {
+    font-family: var(--font-body); font-size: 17px;
+    line-height: 1.65; color: var(--fg-1);
+    margin: 0 0 8px; max-width: 68ch;
+  }
+  .legal a {
+    color: var(--ink); text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 600px) {
+    main { padding: 20px 20px 64px; }
+  }
+</style>

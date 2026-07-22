@@ -1,7 +1,7 @@
 ---
 kicker: Mode
 title: "Bag Business: Taschen als Wertanlage"
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2023
 length: 5 min
 topic: mode

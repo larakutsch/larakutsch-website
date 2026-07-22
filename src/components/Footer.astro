@@ -30,7 +30,11 @@
   </div>
   <div class="bottom">
     <span>© 2026 Lara Kutsch</span>
-    <span>Impressum · Datenschutz</span>
+    <span>
+      <a href="/impressum" class="legal-link">Impressum</a>
+      ·
+      <a href="/datenschutz" class="legal-link">Datenschutz</a>
+    </span>
   </div>
 </footer>
 
@@ -75,6 +79,10 @@
     letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--smoke-2);
   }
+  .legal-link {
+    color: inherit; text-decoration: none;
+  }
+  .legal-link:hover { color: var(--paper); }
   @media (max-width: 720px) {
     .grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   }

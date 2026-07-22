@@ -2,19 +2,12 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ArticleTile from '../components/ArticleTile.astro';
 import Marquee from '../components/Marquee.astro';
-import { getCollection } from 'astro:content';
-
-const allArticles = await getCollection('articles');
-const sorted = allArticles.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
-const featured = sorted.filter(a => a.data.featured).slice(0, 3);
-const more = sorted.filter(a => !a.data.featured).slice(0, 4);
 
 const today = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
 const todayEN = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
 
-const marqueeItems = ['Cosmopolitan','Handelsblatt','Seaside Magazin','Brautmagazin'];
+const marqueeItems = ['Cosmopolitan','Handelsblatt','Seaside Magazin','Brautmagazin','WELT Lifestyle','Marie Claire'];
 ---
 <Layout>
   <Header active="home" />
@@ -50,69 +43,40 @@ const marqueeItems = ['Cosmopolitan','Handelsblatt','Seaside Magazin','Brautmaga
             <span data-lang="de">Anfrage senden →</span>
             <span data-lang="en">Send a request →</span>
           </a>
+
+          <div class="offer">
+            <h2 class="offer-title">
+              <span data-lang="de">Was ich anbiete:</span>
+              <span data-lang="en">What I offer:</span>
+            </h2>
+            <ul class="offer-list">
+              <li>
+                <span data-lang="de">Artikel, Reportagen, Interviews für Print und Digital</span>
+                <span data-lang="en">Articles, features, interviews for print and digital</span>
+              </li>
+              <li>
+                <span data-lang="de">Redaktionelle Leitung und Textchef-Aufgaben</span>
+                <span data-lang="en">Editorial management and copy-editing</span>
+              </li>
+              <li>
+                <span data-lang="de">SEO-Strategien und -Optimierungen</span>
+                <span data-lang="en">SEO strategy and optimisation</span>
+              </li>
+              <li>
+                <span data-lang="de">Social Media Content</span>
+                <span data-lang="en">Social media content</span>
+              </li>
+              <li>
+                <span data-lang="de">Texte für Unternehmen und Marken</span>
+                <span data-lang="en">Copywriting for companies and brands</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
     <Marquee items={marqueeItems} />
-
-    <!-- FEATURED -->
-    <section class="featured">
-      <div class="section-bar">
-        <h2 class="section-title">
-          <span data-lang="de">Aktuell</span>
-          <span data-lang="en">Currently</span>
-        </h2>
-        <span class="kicker muted">2025 · 2026</span>
-      </div>
-      <div class="grid-3">
-        {featured.map(a => (
-          <ArticleTile
-            kicker={a.data.kicker}
-            title={a.data.title}
-            publication={a.data.publication}
-            year={a.data.year}
-            length={a.data.length}
-            swatch={a.data.swatch}
-            img={a.data.img}
-            imgPosition={a.data.imgPosition}
-            pdf={a.data.pdf}
-          />
-        ))}
-      </div>
-    </section>
-
-    <!-- PULL QUOTE -->
-    <section class="quote">
-      <div class="quote-text">
-        <em>&bdquo;</em>Man schreibt nicht, weil man etwas sagen <em class="accent">will,</em> sondern weil man etwas zu sagen <em class="accent">hat.</em><em>&ldquo;</em>
-      </div>
-      <div class="quote-attr">— Max Frisch</div>
-    </section>
-
-    <!-- MORE -->
-    <section class="more">
-      <div class="section-bar">
-        <h2 class="section-title">
-          <span data-lang="de">Weiterlesen</span>
-          <span data-lang="en">More</span>
-        </h2>
-      </div>
-      <div class="grid-4">
-        {more.map(a => (
-          <ArticleTile
-            kicker={a.data.kicker}
-            title={a.data.title}
-            publication={a.data.publication}
-            year={a.data.year}
-            length={a.data.length}
-            swatch={a.data.swatch}
-            img={a.data.img}
-            pdf={a.data.pdf}
-          />
-        ))}
-      </div>
-    </section>
   </main>
 
   <Footer />
@@ -167,39 +131,36 @@ const marqueeItems = ['Cosmopolitan','Handelsblatt','Seaside Magazin','Brautmaga
     text-decoration: none; padding: 10px 18px; font-weight: 700; display: inline-block;
   }
 
-  .featured { padding: 96px 40px 0; }
-  .section-bar {
-    display: flex; justify-content: space-between; align-items: baseline;
-    border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 48px;
+  .offer { margin-top: 40px; }
+  .offer-title {
+    font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 700; color: var(--ink);
+    margin: 0 0 16px;
   }
-  .section-title {
-    font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 3rem);
-    font-weight: 700; letter-spacing: -0.03em; margin: 0;
+  .offer-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 10px;
   }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-
-  .quote { padding: 120px 40px; max-width: 1100px; margin: 0 auto; }
-  .quote-text {
-    font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 4.5rem);
-    font-weight: 700; line-height: 1.05; letter-spacing: -0.025em; text-wrap: balance;
+  .offer-list li {
+    font-family: var(--font-body); font-size: 17px; line-height: 1.4;
+    color: var(--fg-1); padding-left: 20px; position: relative;
   }
-  .quote-text em { font-style: italic; color: var(--ink); }
-  .quote-text em.accent { color: var(--accent); }
-  .quote-attr {
-    margin-top: 24px; font-family: var(--font-ui); font-size: 12px;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-2);
+  .offer-list li::before {
+    content: "•"; position: absolute; left: 0; color: var(--accent);
   }
-  .more { padding: 0 40px 64px; }
 
   @media (max-width: 900px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-text      { order: 1; }
-    .hero-video-wrap { order: 2; }
-    .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+    .hero-grid { grid-template-columns: 1fr; row-gap: 0; }
+    /* dissolve .hero-text so its children can be reordered individually,
+       independent of .offer, without duplicating markup */
+    .hero-text      { display: contents; }
+    .hero-name      { order: 1; margin-top: 24px; }
+    .hero-role      { order: 2; }
+    .cta            { order: 3; }
+    .hero-video-wrap { order: 4; margin-top: 48px; }
+    .offer          { order: 5; margin-top: 32px; }
   }
   @media (max-width: 600px) {
-    .hero, .featured, .more { padding-left: 20px; padding-right: 20px; }
-    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .hero { padding-left: 20px; padding-right: 20px; }
   }
 </style>

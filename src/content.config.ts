@@ -9,7 +9,7 @@ const articles = defineCollection({
     publication: z.string(),
     year:        z.number(),
     length:      z.string(),
-    topic:       z.enum(['mode', 'lifestyle', 'reisen', 'zeitgeist']),
+    topic:       z.enum(['mode', 'lifestyle', 'zeitgeist']),
     swatch:      z.string(),
     img:         z.string().optional(),
     imgPosition: z.string().optional().default('center'),

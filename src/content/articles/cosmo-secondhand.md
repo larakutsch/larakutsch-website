@@ -1,7 +1,7 @@
 ---
 kicker: Mode
 title: So wirst du laut Vinted zur erfolgreichen Secondhand-Shopperin
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2023
 length: 5 min
 topic: mode

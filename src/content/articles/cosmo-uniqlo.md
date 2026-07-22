@@ -1,7 +1,7 @@
 ---
 kicker: Interview
 title: Geht Mode nachhaltig? Interview mit UNIQLO
-publication: Cosmopolitan.de
+publication: Cosmopolitan
 year: 2025
 length: 5 min
 topic: mode
